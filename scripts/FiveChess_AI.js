@@ -36,7 +36,7 @@ function ComputerAI() {
             var myMark = this.getPlateInfo(plate, myType);
             var hisMark = this.getPlateInfo(plate, hisType);
             //我方分数大于对方分数，进攻
-            if (myMark > hisMark) {
+            if (myMark >= hisMark) {
                 this.step = [];
                 for (var i = 0; i <= plate.BLOCKS; i++) {
                     this.step[i] = [];
@@ -96,11 +96,7 @@ function ComputerAI() {
         }
         //AI 先走,直接在棋盘中间下棋
         else {
-            for (var i = 4; i < 12; i++) {
-                for (var j = 4; j < 12; j++) {
-                    points.push(new Location(i, j));
-                }
-            }
+            points.push(new Location(plate.BLOCKS / 2, plate.BLOCKS / 2));
         }
         var index = getRandom(0, points.length);
         return points[index];

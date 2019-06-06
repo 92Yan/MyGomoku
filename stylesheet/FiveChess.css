@@ -48,7 +48,7 @@ html {
     border-width: 5px;
     border-color: #000000;
     border-radius: 10px;
-    height: 150px;
+    height: 200px;
     width: 250px;
     text-align: center;
     padding: 20px;
@@ -68,7 +68,7 @@ html {
     font-style: italic;
     text-align: center;
     text-decoration: blink;
-    color:white;
+    color: white;
     font-size: 32px;
     font-family: 幼圆;
 }
@@ -82,7 +82,7 @@ html {
 
 #plate {
     float: left;
-    margin:0 20px;
+    margin: 0 20px;
     display: block;
     box-shadow: -2px -2px 2px #ff0016, 5px 5px 5px #00a9ff;
     background-color: #eec254;

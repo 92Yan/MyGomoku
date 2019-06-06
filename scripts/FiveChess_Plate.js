@@ -35,7 +35,7 @@ function Plate() {
             //画横标
             context.font = "20px bold 黑体";
             context.fillStyle = "#000000";
-            context.fillText((this.BLOCKS - i + 1).toString(), this.LEFTX - 30, this.LEFTY + i * this.PERSIZE);
+            context.fillText((this.BLOCKS - i + 1).toString(), this.LEFTX - 40, this.LEFTY + i * this.PERSIZE);
         }
 
         var str = "ABCDEFGHIJKLMNO";
@@ -43,7 +43,7 @@ function Plate() {
             //画纵标
             context.font = "20px bold 黑体";
             context.fillStyle = "#000000";
-            context.fillText((str[i]), this.LEFTX + this.PERSIZE * i - 10, this.LEFTY + this.PERSIZE * this.BLOCKS + 20);
+            context.fillText((str[i]), this.LEFTX + this.PERSIZE * i - 10, this.LEFTY + this.PERSIZE * this.BLOCKS + 40);
         }
         //绘制五子棋棋盘的五个星
         var star = [
@@ -141,6 +141,7 @@ function Plate() {
 
     //正则表达式查找是否有五子连珠
     this.hasWin = function () {
+        if (this.chessCount == (this.BLOCKS + 1) * (this.BLOCKS + 1)) return -100;
         //1.横向查找
         for (var i = 0; i <= this.BLOCKS; i++) {
             var crt_line = [];

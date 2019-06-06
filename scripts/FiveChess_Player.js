@@ -1,6 +1,8 @@
 function Player() {
     //玩家是否执黑棋
     this.isBlack = true;
+    //玩家是否下棋
+    this.isPlayer = true;
 
     //玩家下棋
     this.putChess = function (canvas, plate, location) {
