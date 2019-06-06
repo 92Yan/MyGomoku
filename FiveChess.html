@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>五子棋</title>
+    <link href="FiveChess.css" type="text/css" rel="stylesheet">
+    <script src="FiveChess_Chess.js" type="text/javascript"></script>
+    <script src="FiveChess_Plate.js" type="text/javascript"></script>
+    <script src="FiveChess_Control.js" type="text/javascript"></script>
+    <script src="FiveChess_AI.js" type="text/javascript"></script>
+    <script src="FiveChess_Player.js" type="text/javascript"></script>
+</head>
+<body>
+<p id="header" style="font-family: Consolas"><span>Gomoku</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span style="font-size:small;"> made by (92 Yan)</span>
+</p>
+<div id="main">
+    <canvas id="plate" width="660px" height="660px"></canvas>
+    <div id="buttons">
+        <div id="game-marks">
+            <div class="marks" id="black-marks"></div>
+            <br/>
+            <div class="marks" id="white-marks"></div>
+        </div>
+        <button class="btn" id="btn-new">新游戏</button>
+        <button class="btn" id="btn-last">上一步</button>
+        <button class="btn" id="btn-next">下一步</button>
+        <div id="game-msg"></div>
+    </div>
+</div>
+<div class="message-box" id="choose-box">
+    <div>请选择电脑状态</div>
+    <div id="choose-buttons">
+        <button class="btn c-btn" id="choose-black">执黑棋</button>
+        <button class="btn c-btn" id="choose-white">执白棋</button>
+        <button class="btn c-btn" id="choose-none">不用电脑</button>
+    </div>
+</div>
+<div class="message-box" id="game-over-box">
+    <div id="game-result"></div>
+    <button class="btn" id="replay">再来一局</button>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+html {
+    background-color: #fffeec;
+}
+
+
+.btn {
+    width: 160px;
+    height: 50px;
+    margin-bottom: 50px;
+    /*box-shadow: -2px -2px 2px #ff0016,5px 5px 5px #00a9ff;*/
+    border: none;
+    border-radius: 25px;
+    text-align: center;
+    cursor: pointer;
+    background: linear-gradient(to bottom, #ff002b, #fb9500);
+    color: #ffffff;
+    font-size: large;
+    font-family: 幼圆;
+    font-weight: bolder;
+    outline: none;
+}
+
+.btn:hover {
+    cursor: pointer;
+    border: none;
+}
+
+.btn:active {
+    background: linear-gradient(to bottom, #ff0080, #d900fb);
+}
+
+.c-btn {
+    margin: 10px 20px;
+    width: 100px;
+    height: 30px;
+}
+
+.marks {
+    width: 160px;
+    height: 50px;
+    text-align: center;
+}
+
+.message-box {
+    display: none;
+    position: absolute;
+    border-style: solid;
+    border-width: 5px;
+    border-color: #000000;
+    border-radius: 10px;
+    height: 150px;
+    width: 250px;
+    text-align: center;
+    padding: 20px;
+    top: 20%;
+    left: 30%;
+    background-color: lemonchiffon;
+}
+
+#header {
+    margin: 0px auto;
+    width: 1000px;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+    background: linear-gradient(to right, #00a9ff, #d900fb);
+    font-weight: bolder;
+    font-style: italic;
+    text-align: center;
+    text-decoration: blink;
+    color:white;
+    font-size: 32px;
+    font-family: 幼圆;
+}
+
+#main {
+    margin: 0 auto;
+    padding: 20px 20px;
+    width: 1000px;
+    height: 760px;
+}
+
+#plate {
+    float: left;
+    margin:0 20px;
+    display: block;
+    box-shadow: -2px -2px 2px #ff0016, 5px 5px 5px #00a9ff;
+    background-color: #eec254;
+}
+
+#plate:hover {
+    cursor: pointer;
+}
+
+#buttons {
+    float: left;
+    width: 200px;
+    padding: 0px 20px;
+    height: 660px;
+    margin: 0px 20px;
+    text-align: center;
+    background-color: rgba(187, 173, 160, 0.45);
+}
+
+#game-over-box {
+    margin: 20px;
+}
+
+#game-result {
+    margin: 20px;
+    width: 200px;
+}
+
+#game-marks {
+    margin: 20px;
+    text-align: center;
+    padding: 5px;
+}
