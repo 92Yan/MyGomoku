@@ -178,7 +178,7 @@ function ComputerAI() {
         //6.反斜向查找下半
         for (var i = 1; i <= plate.BLOCKS; i++) {
             var crt_line = [];
-            for (var j = 0; j <= plate.BLOCKS && i + j < plate.BLOCKS; j++) {
+            for (var j = 0; j <= plate.BLOCKS && i + j <= plate.BLOCKS; j++) {
                 crt_line.push(plate.Chesses[plate.BLOCKS - j][i + j]);
             }
             var lineStr = plate.chessToStr(crt_line);

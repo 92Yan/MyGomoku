@@ -161,7 +161,7 @@ function Plate() {
         //6.反斜向查找下半
         for (var i = 1; i <= this.BLOCKS; i++) {
             var crt_line = [];
-            for (var j = 0; j <= this.BLOCKS && i + j < this.BLOCKS; j++) {
+            for (var j = 0; j <= this.BLOCKS && i + j <= this.BLOCKS; j++) {
                 crt_line.push(this.Chesses[this.BLOCKS - j][i + j]);
             }
             var chessStr = this.chessToStr(crt_line);

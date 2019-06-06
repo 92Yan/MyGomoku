@@ -35,8 +35,8 @@ window.onload = function (ev) {
         canvas.height = canvas.height;
 
         //分数显示器初始化
-        div_white_marks.innerHTML="";
-        div_black_marks.innerHTML="";
+        div_white_marks.innerHTML = "";
+        div_black_marks.innerHTML = "";
 
         div_choose_box.style.display = "block";
 
@@ -129,6 +129,7 @@ window.onload = function (ev) {
     btn_choose_none.onclick = function () {
         AI.isPlayer = false;
         div_choose_box.style.display = "none";
+        player.isBlack = true;
     }
 
     //再来一局
