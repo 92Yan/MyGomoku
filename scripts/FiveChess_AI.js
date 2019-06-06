@@ -24,7 +24,7 @@ function ComputerAI() {
         var black = 1;
         var myType = white;
         var hisType = black;
-        var points = [];
+        var point;
 
         if (this.isBlack) {
             myType = black;
@@ -33,73 +33,97 @@ function ComputerAI() {
 
         //游戏进行中，使用AI算法下棋
         if (plate.isStart) {
-            var myMark = this.getPlateInfo(plate, myType);
-            var hisMark = this.getPlateInfo(plate, hisType);
-            //我方分数大于对方分数，进攻
-            if (myMark >= hisMark) {
-                this.step = [];
-                for (var i = 0; i <= plate.BLOCKS; i++) {
-                    this.step[i] = [];
-                }
-                //试探性放下下一颗棋子
-                var tryToPut = new Plate();
-                tryToPut.Chesses = plate.Chesses;
-                tryToPut.blackPlay = plate.blackPlay;
+            //棋盘只有一颗黑棋，
+            if (plate.chessCount == 1) {
+                var theChess = plate.lastTemp[0];
+                var X = theChess.Location.X;
+                var Y = theChess.Location.Y;
+                var points = [
+                    [X - 1, Y - 1],
+                    [X, Y - 1],
+                    [X + 1, Y - 1],
+                    [X - 1, Y],
+                    [X + 1, Y],
+                    [X - 1, Y + 1],
+                    [X, Y + 1],
+                    [X + 1, Y + 1]
+                ];
+                var index = getRandom(0, 8);
+                point = new Location(points[index][0], points[index][1]);
+            } else {
+                var myMark = this.getPlateInfo(plate, myType);
+                var hisMark = this.getPlateInfo(plate, hisType);
+                //我方分数大于对方分数，进攻
+                if (myMark >= hisMark) {
+                    this.step = [];
+                    for (var i = 0; i <= plate.BLOCKS; i++) {
+                        this.step[i] = [];
+                    }
+                    //试探性放下下一颗棋子
+                    var tryToPut = new Plate();
+                    tryToPut.Chesses = plate.Chesses;
+                    tryToPut.blackPlay = plate.blackPlay;
 
-                for (var i = 0; i <= plate.BLOCKS; i++) {
-                    for (var j = 0; j <= plate.BLOCKS; j++) {
+                    for (var i = 0; i <= plate.BLOCKS; i++) {
+                        for (var j = 0; j <= plate.BLOCKS; j++) {
 
-                        if (tryToPut.Chesses[i][j] != 0) {
-                            //此处有棋子，此处分数设为
-                            this.step[i][j] = -10000;
-                            continue;
-                        } else {
-                            tryToPut.Chesses[i][j] = myType;
-                            //将棋子放在此处的分数
-                            this.step[i][j] = this.getPlateInfo(tryToPut, myType);
-                            tryToPut.Chesses[i][j] = 0;
+                            this.step[i][j] = new Object();
+                            if (tryToPut.Chesses[i][j] != 0) {
+                                //此处有棋子，此处分数设为
+                                this.step[i][j].myMark = -1000000000;
+                                this.step[i][j].hisMark = 0;
+                                continue;
+                            } else {
+                                tryToPut.Chesses[i][j] = myType;
+                                //将棋子放在此处的分数
+                                this.step[i][j].myMark = this.getPlateInfo(tryToPut, myType);
+                                this.step[i][j].hisMark = this.getPlateInfo(tryToPut, hisType);
+                                tryToPut.Chesses[i][j] = 0;
+                            }
                         }
                     }
+                    point = this.getNextPoint(this.step);
                 }
-                points = this.getNextPoint(this.step);
-            }
-            //我方分数小于对方分数，防守
-            else {
-                this.step = [];
-                for (var i = 0; i <= plate.BLOCKS; i++) {
-                    this.step[i] = [];
-                }
-                //试探性放下下一颗棋子
+                //我方分数小于对方分数，防守
+                else {
+                    this.step = [];
+                    for (var i = 0; i <= plate.BLOCKS; i++) {
+                        this.step[i] = [];
+                    }
+                    //试探性放下下一颗棋子
 
-                var tryToPut = new Plate();
-                tryToPut.Chesses = plate.Chesses;
-                tryToPut.blackPlay = plate.blackPlay;
+                    var tryToPut = new Plate();
+                    tryToPut.Chesses = plate.Chesses;
+                    tryToPut.blackPlay = plate.blackPlay;
 
 
-                for (var i = 0; i <= plate.BLOCKS; i++) {
-                    for (var j = 0; j <= plate.BLOCKS; j++) {
+                    for (var i = 0; i <= plate.BLOCKS; i++) {
+                        for (var j = 0; j <= plate.BLOCKS; j++) {
 
-                        if (tryToPut.Chesses[i][j] != 0) {
-                            //此处有棋子，此处分数设为
-                            this.step[i][j] = -1000000000;
-                            continue;
-                        } else {
-                            tryToPut.Chesses[i][j] = hisType;
-                            //将棋子放在此处的分数
-                            this.step[i][j] = this.getPlateInfo(tryToPut, hisType);
-                            tryToPut.Chesses[i][j] = 0;
+                            this.step[i][j] = new Object();
+                            if (tryToPut.Chesses[i][j] != 0) {
+                                //此处有棋子，此处分数设为
+                                this.step[i][j].hisMark = -1000000000;
+                                this.step[i][j].myMark = 0;
+                                continue;
+                            } else {
+                                tryToPut.Chesses[i][j] = hisType;
+                                //将棋子放在此处的分数
+                                this.step[i][j].myMark = this.getPlateInfo(tryToPut, hisType);
+                                this.step[i][j].hisMark = this.getPlateInfo(tryToPut, myType);
+                                tryToPut.Chesses[i][j] = 0;
+                            }
                         }
                     }
+                    point = this.getNextPoint(this.step);
                 }
-                points = this.getNextPoint(this.step);
             }
         }
         //AI 先走,直接在棋盘中间下棋
         else {
-            points.push(new Location(plate.BLOCKS / 2, plate.BLOCKS / 2));
+            point = new Location(plate.BLOCKS / 2, plate.BLOCKS / 2);
         }
-        var index = getRandom(0, points.length);
-        return points[index];
+        return point;
     }
     //获取下一个最佳下棋点  maxOrMinFlag: true 最大值 ，false 最小值
     this.getNextPoint = function (nextStep) {
@@ -112,16 +136,32 @@ function ComputerAI() {
         var col = nextStep[0].length;
         for (var i = 0; i < row; i++) {
             for (var j = 0; j < col; j++) {
-                if (maxScore < nextStep[i][j]) {
-                    maxScore = nextStep[i][j];
+                if (maxScore < nextStep[i][j].myMark) {
+                    maxScore = nextStep[i][j].myMark;
                     result = [];
                     result.push(new Location(i, j));
-                } else if (maxScore == nextStep[i][j]) {
+                } else if (maxScore == nextStep[i][j].myMark) {
                     result.push(new Location(i, j));
                 }
             }
         }
-        return result;
+        var minScore = 1000000000000;
+        var indexes = [];
+        for (var i = 0; i < result.length; i++) {
+            var X = result[i].X;
+            var Y = result[i].Y;
+
+            if (minScore > nextStep[X][Y].hisMark) {
+                indexes = [];
+                indexes.push(i);
+                minScore = nextStep[X][Y].hisMark;
+            } else if (minScore == nextStep[X][Y].hisMark) {
+                indexes.push(i);
+            }
+        }
+
+        var index = getRandom(0, indexes.length);
+        return result[index];
     }
     //获取棋盘信息,返回类型为 myType 的棋型分数
     this.getPlateInfo = function (plate, myType) {
