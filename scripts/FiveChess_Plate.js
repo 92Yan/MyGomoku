@@ -6,6 +6,7 @@ function Plate() {
     //开始游戏
     this.Init = function () {
         //清空棋子
+        this.chessCount = 0;
         this.isStart = false;
         this.Chesses.length = 0;
         this.lastTemp.length = 0;
@@ -30,6 +31,35 @@ function Plate() {
             context.moveTo(this.LEFTX, this.LEFTY + i * this.PERSIZE);//画横线
             context.lineTo(this.LEFTX + this.BLOCKS * this.PERSIZE, this.LEFTY + i * this.PERSIZE);
             context.stroke();
+
+            //画横标
+            context.font = "20px bold 黑体";
+            context.fillStyle = "#000000";
+            context.fillText((this.BLOCKS - i + 1).toString(), this.LEFTX - 30, this.LEFTY + i * this.PERSIZE);
+        }
+
+        var str = "ABCDEFGHIJKLMNO";
+        for (var i = 0; i <= this.BLOCKS; i++) {
+            //画纵标
+            context.font = "20px bold 黑体";
+            context.fillStyle = "#000000";
+            context.fillText((str[i]), this.LEFTX + this.PERSIZE * i - 10, this.LEFTY + this.PERSIZE * this.BLOCKS + 20);
+        }
+        //绘制五子棋棋盘的五个星
+        var star = [
+            [this.LEFTX + this.PERSIZE * 3, this.LEFTY + this.PERSIZE * 3],
+            [this.LEFTX + this.PERSIZE * 11, this.LEFTY + this.PERSIZE * 3],
+            [this.LEFTX + this.PERSIZE * 7, this.LEFTY + this.PERSIZE * 7],
+            [this.LEFTX + this.PERSIZE * 3, this.LEFTY + this.PERSIZE * 11],
+            [this.LEFTX + this.PERSIZE * 11, this.LEFTY + this.PERSIZE * 11]
+        ];
+        var context = canvas.getContext("2d");
+        for (var i = 0; i < 5; i++) {
+            context.beginPath();
+            context.arc(star[i][0], star[i][1], 6, 0, 2 * Math.PI);
+            context.closePath();
+            context.fillStyle = "#000000";
+            context.fill();
         }
     }
     //下棋
@@ -56,6 +86,7 @@ function Plate() {
             gradient.addColorStop(0, '#d1d1d1');
             gradient.addColorStop(1, '#f9f9f9');
         }
+        this.chessCount++;
         this.showChess(canvas, chess, gradient);
         this.blackPlay = !this.blackPlay;
     }
@@ -67,6 +98,11 @@ function Plate() {
         context.closePath();
         context.fillStyle = gradient;
         context.fill();
+
+        //绘制数字
+        context.font = "12px bold 黑体";
+        context.fillStyle = chess.isBlack ? "#ffffff" : "#000000";
+        context.fillText(this.chessCount.toString(), this.LEFTX + chess.Location.X * this.PERSIZE - 2, this.LEFTY + chess.Location.Y * this.PERSIZE);
     }
 
     //在canvas中绘制上一步棋子
@@ -81,11 +117,12 @@ function Plate() {
     //拿掉一颗棋子
     this.clearChess = function (canvas, chess) {
         var context = canvas.getContext("2d");
-        console.log(chess);
         context.clearRect(chess.Location.X * this.PERSIZE + this.LEFTX - this.PERSIZE / 2,
             chess.Location.Y * this.PERSIZE + this.LEFTY - this.PERSIZE / 2,
             this.PERSIZE, this.PERSIZE);
 
+        //棋子数减少
+        this.chessCount--;
         //重画周围的格子
         context.strokeStyle = "#000000";
         context.beginPath();
@@ -216,15 +253,17 @@ function Plate() {
     //棋子集合
     this.Chesses = [];
     //单向格数
-    this.BLOCKS = 15;
+    this.BLOCKS = 14;
     //格子宽度
-    this.PERSIZE = 40;
+    this.PERSIZE = 42;
     //左上角横坐标
-    this.LEFTX = 30;
+    this.LEFTX = 40;
     //左上角纵坐标
     this.LEFTY = 30;
     //游戏是否开始
     this.isStart = false;
     //上一颗棋子
     this.justChesss = new Chess();
+    //棋子个数
+    this.chessCount = 0;
 }
