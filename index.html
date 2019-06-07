@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <title>五子棋</title>
@@ -11,11 +11,15 @@
     <script src="scripts/FiveChess_Player.js" type="text/javascript"></script>
 </head>
 <body>
+<!--标题-->
 <p id="header" style="font-family: Consolas"><span>Gomoku</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <span style="font-size:small;"> made by (92 Yan)</span>
 </p>
+<!--游戏主界面-->
 <div id="main">
+    <!--棋盘-->
     <canvas id="plate" width="660px" height="660px"></canvas>
+    <!--按钮区-->
     <div id="buttons">
         <div id="game-marks">
             <div class="marks" id="black-marks"></div>
@@ -29,6 +33,7 @@
         <div id="game-msg"></div>
     </div>
 </div>
+<!--创建游戏选项-->
 <div class="message-box" id="choose-box">
     <div>请选择电脑状态</div>
     <div id="choose-buttons">
@@ -38,11 +43,19 @@
         <button class="btn c-btn" id="choose-all">全用电脑</button>
     </div>
 </div>
+<!--游戏结局-->
 <div class="message-box" id="game-over-box">
     <div id="game-result"></div>
     <button class="btn c-btn" id="replay">再来一局</button>
     <button class="btn c-btn" id="ok">确认</button>
 </div>
-
+<!--电脑技术含量-->
+<div class="message-box" id="AI-strength-box">
+    <div id="AI-strength">请选择电脑技术含量</div>
+    <button class="btn c-btn ai-st" id="AI-st-1">渣渣</button>
+    <button class="btn c-btn ai-st" id="AI-st-2">彩笔</button>
+    <button class="btn c-btn ai-st" id="AI-st-3">辣鸡</button>
+    <button class="btn c-btn ai-st" id="AI-st-4">萌新</button>
+</div>
 </body>
 </html>

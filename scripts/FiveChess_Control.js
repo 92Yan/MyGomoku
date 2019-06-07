@@ -9,6 +9,7 @@ window.onload = function (ev) {
     var div_game_over = document.getElementById("game-over-box");
     var div_black_marks = document.getElementById("black-marks");
     var div_white_marks = document.getElementById("white-marks");
+    var div_ai_strength = document.getElementById("AI-strength-box");
     //按钮
     var btn_new = document.getElementById("btn-new");
     var btn_last = document.getElementById("btn-last");
@@ -20,6 +21,8 @@ window.onload = function (ev) {
     var btn_replay = document.getElementById("replay");
     var btn_ok = document.getElementById("ok");
     var btn_change_style = document.getElementById("btn-change-style");
+    var btn_ai_sts = document.getElementsByClassName("ai-st");
+
 
     //游戏状态标识
     var blackWin = 1;
@@ -94,15 +97,7 @@ window.onload = function (ev) {
         plate.Chesses[lastChess.Location.X][lastChess.Location.Y] = 0;
         //从画布上清除棋子
         plate.clearChess(canvas, lastChess);
-        // //移除这颗已经从棋盘上收回的棋子
-        // lastChess = plate.lastTemp.pop();
-        // //放入下一步的记忆数组中
-        // plate.nextTemp.push(lastChess);
-        // //从棋盘上拿除棋子
-        // plate.Chesses[lastChess.Location.X][lastChess.Location.Y] = 0;
-        // //从画布上清除棋子
-        // plate.clearChess(canvas, lastChess);
-        //重设按钮显示状态
+
         btnStatusControl(plate);
     }
     //下一步
@@ -114,11 +109,6 @@ window.onload = function (ev) {
         plate.Chesses[nextChess.Location.X][nextChess.Location.Y] = nextChess.isBlack ? blackWin : whiteWin;
         plate.lastTemp.push(nextChess);
         plate.putChess(canvas, nextChess);
-        // //移除这颗已经放到棋盘上的棋子
-        // nextChess = plate.nextTemp.pop();
-        // plate.Chesses[nextChess.Location.X][nextChess.Location.Y] = nextChess.isBlack ? blackWin : whiteWin;
-        // plate.lastTemp.push(nextChess);
-        // plate.putChess(canvas, nextChess);
 
         var win = plate.hasWin();
         showGameResult(win);
@@ -126,24 +116,24 @@ window.onload = function (ev) {
     }
     //点击 执黑棋
     btn_choose_black.onclick = function () {
+        div_choose_box.style.display = "none";
+        div_ai_strength.style.display = "block";
         player.isPlayer = true;
         //AI 是玩家
         AI.isPlayer = true;
         AI.isBlack = true;
         player.isBlack = false;
-        setTimeout(function () {
-            AI.putChess(canvas, plate);
-        }, 500);
-        div_choose_box.style.display = "none";
+
         btnStatusControl(plate);
     }
     //点击执白棋
     btn_choose_white.onclick = function () {
+        div_choose_box.style.display = "none";
+        div_ai_strength.style.display = "block";
         player.isPlayer = true;
         AI.isPlayer = true;
         AI.isBlack = false;
         player.isBlack = true;
-        div_choose_box.style.display = "none";
     }
     //点击不用电脑
     btn_choose_none.onclick = function () {
@@ -155,20 +145,12 @@ window.onload = function (ev) {
 
     //点击全用电脑
     btn_choose_all.onclick = function () {
+        div_choose_box.style.display = "none"
+        div_ai_strength.style.display = "block";
         player.isPlayer = false;
         AI.isPlayer = true;
         AI.isBlack = true;
-        div_choose_box.style.display = "none"
 
-
-        //设置800ms后开始下棋
-        setTimeout(function () {
-            var win = playerGo;
-            win = AI.putChess(canvas, plate);
-            AI.isBlack = !AI.isBlack;
-            getGameResult(win);
-            btnStatusControl(plate);
-        }, 400);
     }
     //再来一局
     btn_replay.onclick = function () {
@@ -178,14 +160,35 @@ window.onload = function (ev) {
         f();
     }
 
+    //点击确认
     btn_ok.onclick = function () {
         div_game_over.style.display = "none";
     }
 
+    //点击更改样式
     btn_change_style.onclick = function () {
         plate.canShowOrder = !plate.canShowOrder;
         var f = btn_new.onclick;
         f();
+    }
+
+    //点击AI 搜素强度
+    for (var i = 0; i < btn_ai_sts.length; i++) {
+        btn_ai_sts[i].onclick = function () {
+            AI.depth = i + 1;
+            div_ai_strength.style.display = "none";
+            //设置400ms后开始下棋
+            setTimeout(function () {
+                if (AI.isBlack == plate.blackPlay) {
+                    var win = AI.putChess(canvas, plate);
+                    if (!player.isPlayer) {
+                        AI.isBlack = !AI.isBlack;
+                    }
+                    getGameResult(win);
+                }
+                btnStatusControl(plate);
+            }, 400);
+        }
     }
 
     //游戏结果处理
