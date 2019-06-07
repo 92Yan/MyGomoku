@@ -19,6 +19,7 @@ window.onload = function (ev) {
     var btn_choose_all = document.getElementById("choose-all");
     var btn_replay = document.getElementById("replay");
     var btn_ok = document.getElementById("ok");
+    var btn_change_style = document.getElementById("btn-change-style");
 
     //游戏状态标识
     var blackWin = 1;
@@ -179,6 +180,12 @@ window.onload = function (ev) {
 
     btn_ok.onclick = function () {
         div_game_over.style.display = "none";
+    }
+
+    btn_change_style.onclick = function () {
+        plate.canShowOrder = !plate.canShowOrder;
+        var f = btn_new.onclick;
+        f();
     }
 
     //游戏结果处理

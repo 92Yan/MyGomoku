@@ -10,7 +10,7 @@ function ComputerAI() {
         this.isBlack = false;
     }
     this.putChess = function (canvas, plate) {
-        var point = this.getNextChess(plate);
+        var point = this.getNextChessPoint(plate);
         var chess = new Chess();
         chess.Location.X = point.X;
         chess.Location.Y = point.Y;
@@ -19,7 +19,7 @@ function ComputerAI() {
         var win = plate.hasWin();
         return win;
     }
-    this.getNextChess = function (plate) {
+    this.getNextChessPoint = function (plate) {
         var white = -1;
         var black = 1;
         var myType = white;
@@ -38,6 +38,7 @@ function ComputerAI() {
                 var theChess = plate.lastTemp[0];
                 var X = theChess.Location.X;
                 var Y = theChess.Location.Y;
+
                 var points = [
                     [X - 1, Y - 1],
                     [X, Y - 1],
@@ -50,7 +51,8 @@ function ComputerAI() {
                 ];
                 var index = getRandom(0, 8);
                 point = new Location(points[index][0], points[index][1]);
-            } else {
+            } //棋盘中至少已经有两颗棋
+            else {
                 var myMark = this.getPlateInfo(plate, myType);
                 var hisMark = this.getPlateInfo(plate, hisType);
                 //我方分数大于对方分数，进攻
@@ -162,6 +164,10 @@ function ComputerAI() {
 
         var index = getRandom(0, indexes.length);
         return result[index];
+    }
+    //模拟对弈
+    this.tryToGo=function (plate,myType) {
+        this.getNextPoint()
     }
     //获取棋盘信息,返回类型为 myType 的棋型分数
     this.getPlateInfo = function (plate, myType) {

@@ -99,10 +99,12 @@ function Plate() {
         context.fillStyle = gradient;
         context.fill();
 
-        //绘制数字
-        context.font = "12px bold 黑体";
-        context.fillStyle = chess.isBlack ? "#ffffff" : "#000000";
-        context.fillText(this.chessCount.toString(), this.LEFTX + chess.Location.X * this.PERSIZE - 2, this.LEFTY + chess.Location.Y * this.PERSIZE);
+        if(this.canShowOrder){
+            //绘制数字
+            context.font = "12px bold 黑体";
+            context.fillStyle = chess.isBlack ? "#ffffff" : "#000000";
+            context.fillText(this.chessCount.toString(), this.LEFTX + chess.Location.X * this.PERSIZE - 2, this.LEFTY + chess.Location.Y * this.PERSIZE);
+        }
     }
 
     //在canvas中绘制上一步棋子
@@ -267,4 +269,6 @@ function Plate() {
     this.justChesss = new Chess();
     //棋子个数
     this.chessCount = 0;
+    //是否显示棋子数字
+    this.canShowOrder = true;
 }
