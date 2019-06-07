@@ -45,6 +45,8 @@ window.onload = function (ev) {
 
     //新游戏
     btn_new.onclick = function () {
+        //强制制止AI走棋
+        AI.isPlayer = false;
         //清空画布
         canvas.height = canvas.height;
 
