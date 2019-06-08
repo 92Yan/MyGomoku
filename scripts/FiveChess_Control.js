@@ -100,6 +100,14 @@ window.onload = function (ev) {
         //从画布上清除棋子
         plate.clearChess(canvas, lastChess);
 
+        //获取黑白棋的分数
+        var black_marks = AI.getPlateInfo(plate, 1);
+        var white_marks = AI.getPlateInfo(plate, -1);
+
+        //显示分数
+        div_black_marks.innerHTML = "黑棋分数<br/>" + black_marks.toString();
+        div_white_marks.innerHTML = "白棋分数<br/>" + white_marks.toString();
+
         btnStatusControl(plate);
     }
     //下一步
@@ -111,6 +119,14 @@ window.onload = function (ev) {
         plate.Chesses[nextChess.Location.X][nextChess.Location.Y] = nextChess.isBlack ? blackWin : whiteWin;
         plate.lastTemp.push(nextChess);
         plate.putChess(canvas, nextChess);
+
+        //获取黑白棋的分数
+        var black_marks = AI.getPlateInfo(plate, 1);
+        var white_marks = AI.getPlateInfo(plate, -1);
+
+        //显示分数
+        div_black_marks.innerHTML = "黑棋分数<br/>" + black_marks.toString();
+        div_white_marks.innerHTML = "白棋分数<br/>" + white_marks.toString();
 
         var win = plate.hasWin();
         showGameResult(win);
