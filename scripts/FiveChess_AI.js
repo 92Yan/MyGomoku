@@ -91,58 +91,67 @@ function ComputerAI() {
         var hisPoints = nextPoints[1];
 
         //创建推演棋盘
-        var plateT = this.getVirtualPlate(plate);
+        //var plateT = this.getVirtualPlate(plate);
 
+
+        /*使用精确判断*/
+        // if (myMark >= hisMark) {
+        //
+        //     if (myMark < MARK[4] && hisPoints.length > 0) {
+        //         plateT.Chesses[myPoints[0].X][myPoints[0].Y] = myType;
+        //         var myMarkT = this.getPlateInfo(plateT, myType);
+        //         plateT.Chesses[myPoints[0].X][myPoints[0].Y] = 0;
+        //         plateT.Chesses[hisPoints[0].X][hisPoints[0].Y] = hisType;
+        //         var hisMarkT = this.getPlateInfo(plateT, hisType);
+        //         plateT.Chesses[hisPoints[0].X][hisPoints[0].Y] = 0;
+        //         if (myMarkT >= hisMarkT) {
+        //             //进攻
+        //             index = getRandom(0, myPoints.length);
+        //             return myPoints[index];
+        //
+        //         } else {
+        //             //防守
+        //             index = getRandom(0, hisPoints.length);
+        //             return hisPoints[index];
+        //         }
+        //     } else {
+        //         /*进攻*/
+        //         index = getRandom(0, myPoints.length);
+        //         return myPoints[index];
+        //     }
+        // } else {
+        //     if (hisMark < MARK[4] && hisPoints.length > 0) {
+        //         plateT.Chesses[myPoints[0].X][myPoints[0].Y] = myType;
+        //         var myMarkT = this.getPlateInfo(plateT, myType);
+        //         plateT.Chesses[myPoints[0].X][myPoints[0].Y] = 0;
+        //         plateT.Chesses[hisPoints[0].X][hisPoints[0].Y] = hisType;
+        //         var hisMarkT = this.getPlateInfo(plateT, hisType);
+        //         plateT.Chesses[hisPoints[0].X][hisPoints[0].Y] = 0;
+        //         if (myMarkT >= hisMarkT) {
+        //             //进攻
+        //             index = getRandom(0, myPoints.length);
+        //             return myPoints[index];
+        //
+        //         } else {
+        //             //防守
+        //             index = getRandom(0, hisPoints.length);
+        //             return hisPoints[index];
+        //         }
+        //     } else {
+        //         /*防守*/
+        //         index = getRandom(0, hisPoints.length);
+        //         return hisPoints[index];
+        //     }
+        // }
+
+        /*不适用精确判断*/
         if (myMark >= hisMark) {
-
-            if (myMark < MARK[4] && hisPoints.length > 0) {
-                plateT.Chesses[myPoints[0].X][myPoints[0].Y] = myType;
-                var myMarkT = this.getPlateInfo(plateT, myType);
-                plateT.Chesses[myPoints[0].X][myPoints[0].Y] = 0;
-                plateT.Chesses[hisPoints[0].X][hisPoints[0].Y] = hisType;
-                var hisMarkT = this.getPlateInfo(plateT, hisType);
-                plateT.Chesses[hisPoints[0].X][hisPoints[0].Y] = 0;
-                if (myMarkT >= hisMarkT) {
-                    //进攻
-                    index = getRandom(0, myPoints.length);
-                    return myPoints[index];
-
-                } else {
-                    //防守
-                    index = getRandom(0, hisPoints.length);
-                    return hisPoints[index];
-                }
-            } else {
-                /*进攻*/
-                index = getRandom(0, myPoints.length);
-                return myPoints[index];
-            }
+            index = getRandom(0, myPoints.length);
+            return myPoints[index];
         } else {
-            if (hisMark < MARK[4] && hisPoints.length > 0) {
-                plateT.Chesses[myPoints[0].X][myPoints[0].Y] = myType;
-                var myMarkT = this.getPlateInfo(plateT, myType);
-                plateT.Chesses[myPoints[0].X][myPoints[0].Y] = 0;
-                plateT.Chesses[hisPoints[0].X][hisPoints[0].Y] = hisType;
-                var hisMarkT = this.getPlateInfo(plateT, hisType);
-                plateT.Chesses[hisPoints[0].X][hisPoints[0].Y] = 0;
-                if (myMarkT >= hisMarkT) {
-                    //进攻
-                    index = getRandom(0, myPoints.length);
-                    return myPoints[index];
-
-                } else {
-                    //防守
-                    index = getRandom(0, hisPoints.length);
-                    return hisPoints[index];
-                }
-            } else {
-                /*防守*/
-                index = getRandom(0, hisPoints.length);
-                return hisPoints[index];
-            }
+            index = getRandom(0, hisPoints.length);
+            return hisPoints[index];
         }
-
-        return null;
 
     }
 
